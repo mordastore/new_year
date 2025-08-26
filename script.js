@@ -61,26 +61,3 @@ function fireConfetti() {
   }
   update();
 }
-  e.style.left = `${Math.random()*100}%`;
-  e.style.animationDuration = `${3 + Math.random()*3}s`;
-  e.style.fontSize = `${18 + Math.random()*16}px`;
-  cont.appendChild(e); setTimeout(()=>e.remove(), 6500);
-}
-setInterval(spawnEmoji, 300);
-
-// Конфетти
-function fireConfetti(){
-  const c = document.getElementById('confetti-canvas'), k = c.getContext('2d');
-  c.width=innerWidth; c.height=innerHeight;
-  const colors=['#f6eedc','#e3b56b','#2f5d45','#b44933','#ffffff'];
-  let P=[], n=140, cx=c.width/2, cy=c.height/2;
-  for(let i=0;i<n;i++){ const a=Math.random()*Math.PI*2, v=3+Math.random()*5;
-    P.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:2+Math.random()*4,c:colors[Math.floor(Math.random()*colors.length)],life:60+Math.random()*20});
-  }
-  (function upd(){
-    k.clearRect(0,0,c.width,c.height);
-    P.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.life--; k.beginPath(); k.arc(p.x,p.y,p.r,0,Math.PI*2); k.fillStyle=p.c; k.fill(); });
-    P=P.filter(p=>p.life>0);
-    P.length ? requestAnimationFrame(upd) : k.clearRect(0,0,c.width,c.height);
-  })();
-}
