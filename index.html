@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>это Ваш подарок в morda.store</title>
-  <link rel="stylesheet" href="./style.css" />
+  <!-- cache-bust -->
+  <link rel="stylesheet" href="./style.css?v=2025-08-27-ny" />
 </head>
 <body>
 
-  <!-- глобальные холсты эффектов -->
+  <!-- холсты эффектов -->
   <canvas id="global-snow" aria-hidden="true"></canvas>
   <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
@@ -20,8 +21,8 @@
       <button id="openBtn">открой свой подарок</button>
     </div>
 
-    <!-- СЕРТИФИКАТ -->
-    <div class="certificate" id="cert">
+    <!-- СЕРТИФИКАТ (инлайн-скрытие на случай, если CSS не загрузится) -->
+    <div class="certificate" id="cert" style="display:none">
       <h1>morda.store</h1>
       <h2>подарочный сертификат</h2>
 
@@ -48,6 +49,7 @@
     <div class="emoji-container" aria-hidden="true"></div>
   </div>
 
-  <script src="./script.js"></script>
+  <!-- cache-bust + defer -->
+  <script src="./script.js?v=2025-08-27-ny" defer></script>
 </body>
 </html>
