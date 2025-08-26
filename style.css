@@ -3,11 +3,9 @@
 * { box-sizing: border-box; }
 
 :root{
-  /* новогодняя палитра */
   --ny-red:#b44933; --ny-red-d:#9e3d29;
   --ny-cream:#f6eedc; --ny-pine:#2f5d45; --ny-gold:#e3b56b;
-  /* старая плоская розовая кнопка */
-  --pink:#ff94b6; --pink-h:#f871a0;
+  --pink:#ff94b6; --pink-h:#f871a0; /* плоская кнопка */
 }
 
 html, body {
@@ -58,19 +56,20 @@ html, body {
 
 /* ===== СЕРТИФИКАТ — полностью NY ===== */
 .certificate{
-  display: none;
+  /* JS снимет инлайновый display:none, а этот класс задаёт остальное */
   position: relative; overflow: hidden;
   border-radius: 22px; padding: 28px;
   box-shadow: 0 30px 60px rgba(0,0,0,.25);
   background:
     /* гирлянда — встроенный SVG в фоне, поэтому ВСЕГДА за текстом */
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180"><g stroke="%232f5d45" stroke-width="10" stroke-linecap="round"><path d="M0,20 C200,60 450,40 650,70 C850,100 1050,80 1200,110" fill="none"/></g><g stroke="%233c7a5a" stroke-width="8" stroke-linecap="round"><path d="M100,40 l-40,30 M140,45 l-36,28 M180,50 l-40,30 M220,55 l-36,28 M260,60 l-40,30 M580,80 l-36,28 M620,85 l-40,30 M660,90 l-36,28 M700,95 l-40,30 M900,110 l-36,28 M940,115 l-40,30 M980,120 l-36,28 M1020,125 l-40,30"/></g><g><circle cx="120" cy="30" r="6" fill="%23f6eedc"/><line x1="120" y1="30" x2="120" y2="92" stroke="%23f6eedc" stroke-width="3"/><circle cx="120" cy="120" r="28" fill="%23e05a3b"/><path d="M100,120 a20,20 0 0 0 40,0" fill="none" stroke="%23f6eedc" stroke-width="5"/><path d="M108,112 h24" stroke="%23f6eedc" stroke-width="5"/></g></svg>')
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180"><g stroke="%232f5d45" stroke-width="10" stroke-linecap="round"><path d="M0,20 C200,60 450,40 650,70 C850,100 1050,80 1200,110" fill="none"/></g><g stroke="%233c7a5a" stroke-width="8" stroke-linecap="round"><path d="M100,40 l-40,30 M140,45 l-36,28 M180,50 l-40,30 M220,55 l-36,28 M260,60 l-40,30 M580,80 l-36,28 M620,85 l-40,30 M660,90 л-36,28 M700,95 l-40,30 M900,110 l-36,28 M940,115 l-40,30 M980,120 l-36,28 M1020,125 l-40,30"/></g><g><circle cx="120" cy="30" r="6" fill="%23f6eedc"/><line x1="120" y1="30" x2="120" y2="92" stroke="%23f6eedc" stroke-width="3"/><circle cx="120" cy="120" r="28" fill="%23e05a3b"/><path d="M100,120 a20,20 0 0 0 40,0" fill="none" stroke="%23f6eedc" stroke-width="5"/><path d="M108,112 h24" stroke="%23f6eedc" stroke-width="5"/></g></svg>')
       no-repeat top center / contain,
     linear-gradient(to bottom, var(--ny-red) 0%, var(--ny-red-d) 100%);
   color: var(--ny-cream);
+  opacity: 0; transform: scale(.96);
+  transition: opacity .5s ease, transform .5s ease;
 }
-.certificate.show { display: block; animation: fadeZoom .5s ease both; }
-@keyframes fadeZoom{ from{ opacity:0; transform:scale(.96) } to{ opacity:1; transform:scale(1) } }
+.certificate.show{ opacity:1; transform: scale(1); }
 
 /* мелкие снежинки поверх фона сертификата */
 .certificate::before{
