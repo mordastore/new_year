@@ -1,28 +1,74 @@
-// Открытие сертификата с анимацией и конфетти
+// ====== открытие сертификата (включаем новогодний скин) ======
 document.getElementById('openBtn').addEventListener('click', function () {
   const cert = document.getElementById('cert');
   const cover = document.getElementById('cover');
+
   cover.style.display = 'none';
-  cert.classList.add('show');
-  fireConfetti();
+  cert.classList.add('show', 'ny');   // показываем и включаем новогодний скин
+
+  fireConfetti();                     // праздничное конфетти
+  stopEmojiSnow();                    // останавливаем снежинки на фоне страницы
+  startLocalSnow();                   // запускаем локальный снег внутри сертификата
 });
 
-// Эмодзи-дождь
-function createEmojiRain() {
+// ====== «эмодзи-дождь» → снежинки, пока открыт cover ======
+let snowTimer = setInterval(createSnowflake, 300);
+function createSnowflake() {
   const container = document.querySelector('.emoji-container');
-  const emojis = ['🐶', '🐱', '🐾'];
-  const emoji = document.createElement('div');
-  emoji.classList.add('emoji');
-  emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-  emoji.style.left = `${Math.random() * 100}%`;
-  emoji.style.animationDuration = `${3 + Math.random() * 3}s`;
-  emoji.style.fontSize = `${20 + Math.random() * 20}px`;
-  container.appendChild(emoji);
-  setTimeout(() => emoji.remove(), 6000);
+  if (!container) return;
+  const snow = document.createElement('div');
+  snow.classList.add('emoji');
+  snow.textContent = '❄️';
+  snow.style.left = `${Math.random() * 100}%`;
+  snow.style.animationDuration = `${3 + Math.random() * 3}s`;
+  snow.style.fontSize = `${18 + Math.random() * 18}px`;
+  container.appendChild(snow);
+  setTimeout(() => snow.remove(), 6000);
 }
-setInterval(createEmojiRain, 300);
+function stopEmojiSnow(){
+  if (snowTimer) { clearInterval(snowTimer); snowTimer = null; }
+  const container = document.querySelector('.emoji-container');
+  if (container) container.innerHTML = '';
+}
 
-// Конфетти-взрыв из центра
+// ====== локальный снег на canvas внутри #cert ======
+function startLocalSnow(){
+  const cert = document.getElementById('cert');
+  const cv = document.getElementById('ms-snow');
+  if (!cert || !cv) return;
+
+  const ctx = cv.getContext('2d');
+  let W,H, flakes=[];
+  function resize(){
+    const r = cert.getBoundingClientRect();
+    W = cv.width = r.width;
+    H = cv.height = r.height;
+  }
+  function make(n){
+    flakes = Array.from({length:n}, ()=>({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: 1 + Math.random()*2.2,
+      s: .3 + Math.random()*1.0,
+      w: Math.random()*1.2
+    }));
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = 'rgba(255,255,255,.9)';
+    for (const f of flakes){
+      ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2); ctx.fill();
+      f.y += f.s; f.x += Math.sin(f.y/28)*f.w;
+      if (f.y > H){ f.y = -5; f.x = Math.random()*W; }
+    }
+    requestAnimationFrame(draw);
+  }
+  const ro = new ResizeObserver(()=>{ resize(); make(Math.min(120, Math.floor((W*H)/15000))); });
+  ro.observe(cert);
+  resize(); make(90); draw();
+}
+
+// ====== конфетти-взрыв в новогодней палитре ======
 function fireConfetti() {
   const canvas = document.getElementById('confetti-canvas');
   const ctx = canvas.getContext('2d');
@@ -33,7 +79,7 @@ function fireConfetti() {
   const count = 120;
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
-  const colors = ['#ff69b4', '#ffd1e3', '#ffe3f3', '#ffffff', '#f871a0'];
+  const colors = ['#f6eedc', '#e3b56b', '#2f5d45', '#b44933', '#ffffff']; // крем, золото, хвоя, терракот, белый
 
   for (let i = 0; i < count; i++) {
     const angle = Math.random() * 2 * Math.PI;
@@ -61,12 +107,8 @@ function fireConfetti() {
       ctx.fill();
     });
     pieces = pieces.filter(p => p.life > 0);
-    if (pieces.length > 0) {
-      requestAnimationFrame(update);
-    } else {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    if (pieces.length > 0) requestAnimationFrame(update);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
-
   update();
 }
