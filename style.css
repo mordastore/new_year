@@ -1,48 +1,78 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500&family=Sofia+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
-*{box-sizing:border-box}
+* { box-sizing: border-box; }
 
 :root{
+  /* новогодняя палитра */
   --ny-red:#b44933; --ny-red-d:#9e3d29;
   --ny-cream:#f6eedc; --ny-pine:#2f5d45; --ny-gold:#e3b56b;
-  --pink:#ff94b6; --pink-h:#f871a0; /* плоская кнопка как раньше */
+  /* старая плоская розовая кнопка */
+  --pink:#ff94b6; --pink-h:#f871a0;
 }
 
-html,body{
-  margin:0; padding:0; height:100vh; overflow-x:hidden;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Quicksand',sans-serif;
-  background:linear-gradient(135deg,var(--ny-red),var(--ny-red-d));
-  color:var(--ny-cream);
+html, body {
+  margin: 0; height: 100vh; overflow-x: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Quicksand', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: linear-gradient(135deg, var(--ny-red), var(--ny-red-d));
+  color: var(--ny-cream);
 }
 
-.wrapper{ text-align:center; width:100%; max-width:500px; padding:20px; position:relative; z-index:2 }
+.wrapper {
+  text-align: center;
+  width: 100%; max-width: 520px;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
 
-/* ОБЛОЖКА */
-#cover{ display:flex; flex-direction:column; align-items:center; justify-content:center }
-.cover-image{ width:100%; border-radius:20px; box-shadow:0 10px 26px rgba(0,0,0,.25); margin-bottom:18px }
-/* СТАРАЯ ПЛОСКАЯ кнопка */
+/* холсты эффектов (не блокируют клики) */
+#global-snow, #confetti-canvas {
+  position: fixed; inset: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+}
+#global-snow { z-index: 1; }
+#confetti-canvas { z-index: 999; }
+
+/* ===== ОБЛОЖКА ===== */
+#cover { display: flex; flex-direction: column; align-items: center; }
+#cover.is-hidden { display: none !important; }
+
+.cover-image{
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 10px 26px rgba(0,0,0,.25);
+  margin-bottom: 18px;
+}
+
+/* старая ПЛОСКАЯ кнопка */
 #openBtn{
-  padding:12px 22px; border:none; border-radius:20px; font-size:18px; cursor:pointer;
-  background:var(--pink); color:#fff; box-shadow:0 4px 12px rgba(0,0,0,.15);
-  transition:background .2s, transform .2s;
+  padding: 12px 22px; border: none; border-radius: 20px;
+  background: var(--pink); color: #fff; font-size: 18px; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  transition: background .2s, transform .2s;
+  position: relative; z-index: 5; pointer-events: auto;
 }
-#openBtn:hover{ background:var(--pink-h); transform:translateY(-1px) }
+#openBtn:hover{ background: var(--pink-h); transform: translateY(-1px); }
 
-/* СЕРТИФИКАТ (всегда NY) */
+/* ===== СЕРТИФИКАТ — полностью NY ===== */
 .certificate{
-  display:none; position:relative; overflow:hidden; border-radius:22px; padding:28px;
-  box-shadow:0 30px 60px rgba(0,0,0,.25);
+  display: none;
+  position: relative; overflow: hidden;
+  border-radius: 22px; padding: 28px;
+  box-shadow: 0 30px 60px rgba(0,0,0,.25);
   background:
+    /* гирлянда — встроенный SVG в фоне, поэтому ВСЕГДА за текстом */
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180"><g stroke="%232f5d45" stroke-width="10" stroke-linecap="round"><path d="M0,20 C200,60 450,40 650,70 C850,100 1050,80 1200,110" fill="none"/></g><g stroke="%233c7a5a" stroke-width="8" stroke-linecap="round"><path d="M100,40 l-40,30 M140,45 l-36,28 M180,50 l-40,30 M220,55 l-36,28 M260,60 l-40,30 M580,80 l-36,28 M620,85 l-40,30 M660,90 l-36,28 M700,95 l-40,30 M900,110 l-36,28 M940,115 l-40,30 M980,120 l-36,28 M1020,125 l-40,30"/></g><g><circle cx="120" cy="30" r="6" fill="%23f6eedc"/><line x1="120" y1="30" x2="120" y2="92" stroke="%23f6eedc" stroke-width="3"/><circle cx="120" cy="120" r="28" fill="%23e05a3b"/><path d="M100,120 a20,20 0 0 0 40,0" fill="none" stroke="%23f6eedc" stroke-width="5"/><path d="M108,112 h24" stroke="%23f6eedc" stroke-width="5"/></g></svg>')
-      no-repeat top center/contain,
-    linear-gradient(to bottom,var(--ny-red) 0%, var(--ny-red-d) 100%);
-  color:var(--ny-cream);
+      no-repeat top center / contain,
+    linear-gradient(to bottom, var(--ny-red) 0%, var(--ny-red-d) 100%);
+  color: var(--ny-cream);
 }
-.certificate.show{ display:block; animation:fadeZoom .5s ease both }
-@keyframes fadeZoom{ from{opacity:0; transform:scale(.96)} to{opacity:1; transform:scale(1)} }
+.certificate.show { display: block; animation: fadeZoom .5s ease both; }
+@keyframes fadeZoom{ from{ opacity:0; transform:scale(.96) } to{ opacity:1; transform:scale(1) } }
 
-/* снежная крупа */
+/* мелкие снежинки поверх фона сертификата */
 .certificate::before{
   content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
@@ -52,46 +82,54 @@ html,body{
     radial-gradient(circle at 85% 70%, rgba(255,255,255,.8) 0 1.4px, transparent 2px) 0 0/160px 160px;
 }
 
-/* контент поверх фоновых слоёв */
-.certificate h1,.certificate h2,.certificate p,.small-note,.small-note2,.cta-button{ position:relative; z-index:2 }
-.certificate h1{ font-size:36px; margin:0 0 10px; text-shadow:0 1px 0 rgba(0,0,0,.08) }
-.certificate h2{ font-size:26px; margin:0 0 10px; opacity:.95 }
-.certificate p{ font-size:20px; margin:10px 0 }
-.small-note a{ color:var(--ny-gold); text-decoration:none; border-bottom:1px dotted var(--ny-gold) }
-.small-note a:hover{ text-decoration:underline }
+/* контент поверх фоновых слоёв сертификата */
+.certificate h1, .certificate h2,
+.certificate p, .small-note, .small-note2, .cta-button {
+  position: relative; z-index: 2;
+}
+.certificate h1{ font-size: 36px; margin: 0 0 10px; text-shadow: 0 1px 0 rgba(0,0,0,.08); }
+.certificate h2{ font-size: 26px; margin: 0 0 10px; opacity: .95; }
+.certificate p { font-size: 20px; margin: 10px 0; }
 
-/* КНОПКА сертификата — СТАРАЯ ПЛОСКАЯ */
+.small-note a{
+  color: var(--ny-gold); text-decoration: none; border-bottom: 1px dotted var(--ny-gold);
+}
+.small-note a:hover{ text-decoration: underline; }
+
+/* ПЛОСКАЯ кнопка на сертификате + анимированный 🎁 */
 .cta-button{
-  display:inline-block; margin-top:22px; padding:12px 22px;
-  background:var(--pink); color:#fff; border:none; border-radius:20px; text-decoration:none;
-  font-size:18px; font-weight:500; box-shadow:0 4px 12px rgba(0,0,0,.15);
-  transition:background .2s, transform .2s;
+  display: inline-block; margin-top: 22px; padding: 12px 22px;
+  background: var(--pink); color: #fff; border: none; border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  font-size: 18px; font-weight: 600; text-decoration: none;
+  transition: background .2s, transform .2s;
+  position: relative; z-index: 5; pointer-events: auto;
 }
-.cta-button:hover{ background:var(--pink-h); transform:translateY(-1px) }
-/* 🎁 анимация подарка НА кнопке */
-.btn-gift{ display:inline-block; margin-left:.45em; transform-origin:center; animation:gift-wiggle 1.6s ease-in-out infinite }
-@keyframes gift-wiggle{ 0%,100%{transform:translateY(0) rotate(0) scale(1)} 50%{transform:translateY(-2px) rotate(10deg) scale(1.12)} }
+.cta-button:hover{ background: var(--pink-h); transform: translateY(-1px); }
 
-/* 🎄 у номера — БЕЗ анимации */
-.cert-number2{ position:relative; color:var(--ny-gold) }
-.cert-number2::after{ content:"🎄"; position:absolute; right:-1.4em; top:-.3em }
-
-/* падающие эмодзи */
-.emoji-container{ position:fixed; inset:0; overflow:hidden; z-index:1; pointer-events:none }
-.emoji{ position:absolute; font-size:24px; animation:fall linear forwards; opacity:.95; filter:drop-shadow(0 2px 2px rgba(0,0,0,.15)) }
-@keyframes fall{ 0%{transform:translateY(-10vh) rotate(0)} 100%{transform:translateY(110vh) rotate(360deg); opacity:0} }
-
-/* блики */
-.glow-background{ position:fixed; inset:0; overflow:hidden; z-index:0; pointer-events:none }
-.glow-circle{ position:absolute; width:300px; height:300px; border-radius:50%;
-  background:radial-gradient(circle, rgba(255,255,255,.20) 0%, rgba(255,255,255,0) 70%);
-  animation:moveGlow 20s linear infinite; opacity:.35; filter:blur(60px)
+.btn-gift{ display: inline-block; margin-left: .45em; transform-origin: center;
+  animation: gift-wiggle 1.6s ease-in-out infinite;
 }
-.glow-circle:nth-child(1){ top:10%; left:20% }
-.glow-circle:nth-child(2){ top:50%; left:70%; animation-delay:5s }
-.glow-circle:nth-child(3){ top:80%; left:30%; animation-delay:10s }
-@keyframes moveGlow{ 0%{transform:scale(1) translateY(0) rotate(0)} 50%{transform:scale(1.2) translateY(-20px) rotate(180deg)} 100%{transform:scale(1) translateY(0) rotate(360deg)} }
+@keyframes gift-wiggle{
+  0%,100%{ transform: translateY(0) rotate(0) scale(1); }
+  50%{ transform: translateY(-2px) rotate(10deg) scale(1.12); }
+}
 
-/* холсты эффектов */
-#confetti-canvas,#global-snow{ position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none }
-#confetti-canvas{ z-index:999 } #global-snow{ z-index:1 }
+/* 🎄 у номера — без анимации */
+.cert-number2{ position: relative; color: var(--ny-gold); }
+.cert-number2::after{ content: "🎄"; position: absolute; right: -1.4em; top: -.3em; }
+
+/* падающие мордочки (на всём сайте) */
+.emoji-container{
+  position: fixed; inset: 0; overflow: hidden;
+  z-index: 3; pointer-events: none;
+}
+.emoji{
+  position: absolute; font-size: 24px; opacity: .95;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.15));
+  animation: fall linear forwards;
+}
+@keyframes fall{
+  0%{ transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100%{ transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
