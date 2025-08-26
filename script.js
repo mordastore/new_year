@@ -1,39 +1,66 @@
-// Кнопка "открой свой подарок" — надёжно
-document.addEventListener('click', (e) => {
-  const openBtn = e.target.closest('#openBtn');
-  if (openBtn) {
-    e.preventDefault();
-    const cover = document.getElementById('cover');
-    const cert  = document.getElementById('cert');
-    if (cover) cover.classList.add('is-hidden');
-    if (cert) { cert.style.display=''; cert.classList.add('show'); }
-    fireConfetti();
-  }
+// Открытие сертификата
+document.getElementById('openBtn').addEventListener('click', () => {
+  document.getElementById('cover').style.display = 'none';
+  document.getElementById('cert').classList.add('show');
+  fireConfetti();
 });
 
-// Глобальный снег
-(function(){
-  const c = document.getElementById('global-snow'), k = c.getContext('2d');
-  let W,H,F=[];
-  function resize(){ W=c.width=innerWidth; H=c.height=innerHeight;
-    F = Array.from({length: Math.min(180, Math.floor(W*H/15000))}, ()=>({
-      x:Math.random()*W, y:Math.random()*H, r:1+Math.random()*2.2, s:.35+Math.random()*1.1, w:Math.random()*1.6
-    }));
-  }
-  function draw(){ k.clearRect(0,0,W,H); k.fillStyle='rgba(255,255,255,.9)';
-    for(const f of F){ k.beginPath(); k.arc(f.x,f.y,f.r,0,Math.PI*2); k.fill();
-      f.y+=f.s; f.x+=Math.sin(f.y/28)*f.w; if(f.y>H){ f.y=-5; f.x=Math.random()*W; } }
-    requestAnimationFrame(draw);
-  }
-  addEventListener('resize', resize); resize(); draw();
-})();
+// Эмодзи и снежинки
+function createEmojiRain() {
+  const container = document.querySelector('.emoji-container');
+  const emojis = ['❄️', '🎄', '🐶', '🎁'];
+  const emoji = document.createElement('div');
+  emoji.classList.add('emoji');
+  emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  emoji.style.left = `${Math.random() * 100}%`;
+  emoji.style.animationDuration = `${3 + Math.random() * 3}s`;
+  emoji.style.fontSize = `${20 + Math.random() * 20}px`;
+  emoji.style.top = '-5vh';
+  container.appendChild(emoji);
+  setTimeout(() => emoji.remove(), 6000);
+}
+setInterval(createEmojiRain, 300);
 
-// Падающие мордочки
-const EMOJIS = ['🐶','🐱','🐭','🐹','🐰','🐻','🐼'];
-function spawnEmoji(){
-  const cont = document.querySelector('.emoji-container'); if(!cont) return;
-  const e = document.createElement('div'); e.className='emoji';
-  e.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+// Конфетти
+function fireConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let pieces = [];
+  const count = 80;
+  const colors = ['#f6eedc', '#e3b56b', '#2f5d45', '#ffffff', '#b44933'];
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * 2 * Math.PI;
+    const speed = Math.random() * 5 + 2;
+    pieces.push({
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      radius: Math.random() * 3 + 2,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      life: 60
+    });
+  }
+
+  function update() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life--;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    });
+    pieces = pieces.filter(p => p.life > 0);
+    if (pieces.length > 0) requestAnimationFrame(update);
+  }
+  update();
+}
   e.style.left = `${Math.random()*100}%`;
   e.style.animationDuration = `${3 + Math.random()*3}s`;
   e.style.fontSize = `${18 + Math.random()*16}px`;
