@@ -16,7 +16,7 @@
 })();
 
 // ПАДАЮЩИЕ МОРДОЧКИ
-const EMOJIS = ['🐶','🐱','🐭','🐹','🐰','🐻','🐼'];
+const EMOJIS = ['🐶','🐱','🦴','❄️','🎁'];
 function spawnEmoji(){
   const cont = document.querySelector('.emoji-container'); if(!cont) return;
   const e = document.createElement('div'); e.className='emoji';
