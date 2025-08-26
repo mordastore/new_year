@@ -3,7 +3,6 @@
 * { box-sizing: border-box; }
 
 :root{
-  /* Новогодняя палитра */
   --ny-red:#b44933; --ny-red-d:#9e3d29;
   --ny-cream:#f6eedc; --ny-pine:#2f5d45; --ny-gold:#e3b56b;
 }
@@ -13,7 +12,6 @@ html, body {
   font-family: 'Quicksand', sans-serif;
   height: 100vh; overflow-x: hidden;
   display: flex; align-items: center; justify-content: center;
-  /* СРАЗУ КРАСНАЯ ТЕМА ДЛЯ ВСЕГО САЙТА */
   background: linear-gradient(135deg, var(--ny-red), var(--ny-red-d));
   color: var(--ny-cream);
 }
@@ -47,8 +45,8 @@ html, body {
   border-radius: 22px; padding: 28px;
   box-shadow: 0 30px 60px rgba(0,0,0,.25);
   background:
-    /* Гирлянда в ФОНЕ → всегда за текстом */
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180"><g stroke="%232f5d45" stroke-width="10" stroke-linecap="round"><path d="M0,20 C200,60 450,40 650,70 C850,100 1050,80 1200,110" fill="none"/></g><g stroke="%233c7a5a" stroke-width="8" stroke-linecap="round"><path d="M100,40 l-40,30 M140,45 l-36,28 M180,50 l-40,30 M220,55 l-36,28 M260,60 l-40,30 M580,80 l-36,28 M620,85 l-40,30 M660,90 l-36,28 M700,95 l-40,30 M900,110 l-36,28 M940,115 l-40,30 M980,120 l-36,28 M1020,125 l-40,30"/></g><g><circle cx="120" cy="30" r="6" fill="%23f6eedc"/><line x1="120" y1="30" x2="120" y2="92" stroke="%23f6eedc" stroke-width="3"/><circle cx="120" cy="120" r="28" fill="%23e05a3b"/><path d="M100,120 a20,20 0 0 0 40,0" fill="none" stroke="%23f6eedc" stroke-width="5"/><path d="M108,112 h24" stroke="%23f6eedc" stroke-width="5"/></g></svg>')
+    /* гирлянда в фоне — всегда позади текста */
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180"><g stroke="%232f5d45" stroke-width="10" stroke-linecap="round"><path d="M0,20 C200,60 450,40 650,70 C850,100 1050,80 1200,110" fill="none"/></g><g stroke="%233c7a5a" stroke-width="8" stroke-linecap="round"><path d="M100,40 l-40,30 M140,45 l-36,28 M180,50 l-40,30 M220,55 l-36,28 M260,60 l-40,30 M580,80 l-36,28 M620,85 l-40,30 M660,90 l-36,28 M700,95 l-40,30 M900,110 л-36,28 M940,115 l-40,30 M980,120 l-36,28 M1020,125 l-40,30"/></g><g><circle cx="120" cy="30" r="6" fill="%23f6eedc"/><line x1="120" y1="30" x2="120" y2="92" stroke="%23f6eedc" stroke-width="3"/><circle cx="120" cy="120" r="28" fill="%23e05a3b" /><path d="M100,120 a20,20 0 0 0 40,0" fill="none" stroke="%23f6eedc" stroke-width="5" /><path d="M108,112 h24" stroke="%23f6eedc" stroke-width="5"/></g></svg>')
       no-repeat top center / contain,
     linear-gradient(to bottom, var(--ny-red) 0%, var(--ny-red-d) 100%);
   color: var(--ny-cream);
@@ -66,40 +64,40 @@ html, body {
     radial-gradient(circle at 85% 70%, rgba(255,255,255,.8) 0 1.4px, transparent 2px) 0 0/160px 160px;
 }
 
-/* заголовки наверняка над фоном/крупой */
-.certificate h1, .certificate h2{
-  position: relative; z-index: 2; /* выше фоновых слоёв сертификата */
-  margin: 0 0 10px;
-  text-shadow: 0 1px 0 rgba(0,0,0,.08);
-}
-.certificate h1{ font-size: 36px; }
-.certificate h2{ font-size: 26px; opacity: .95; }
-.certificate p{ position: relative; z-index: 2; font-size: 20px; margin: 10px 0; }
-
-.small-note, .small-note2{ position: relative; z-index: 2; }
+/* заголовки и текст поверх фоновых слоёв */
+.certificate h1, .certificate h2,
+.certificate p, .small-note, .small-note2, .cta-button { position: relative; z-index: 2; }
+.certificate h1{ font-size: 36px; margin: 0 0 10px; text-shadow: 0 1px 0 rgba(0,0,0,.08); }
+.certificate h2{ font-size: 26px; margin: 0 0 10px; opacity:.95; }
+.certificate p{ font-size: 20px; margin: 10px 0; }
 .small-note a{ color: var(--ny-gold); text-decoration: none; border-bottom: 1px dotted var(--ny-gold); }
 .small-note a:hover{ text-decoration: underline; }
 
-/* кнопка на сертификате — зелёная */
+/* ===== КНОПКА: возвращаем ПЛОСКИЙ старый стиль ===== */
 .cta-button{
-  display: inline-block; margin-top: 22px; padding: 12px 22px;
-  color:#fff; background: linear-gradient(180deg, var(--ny-pine), #204636);
-  border:1px solid #1f4e3a; border-radius: 20px; text-decoration:none;
-  box-shadow: 0 8px 18px rgba(47,93,69,.35), inset 0 0 0 1px rgba(255,255,255,.08);
-  transition: transform .2s ease, box-shadow .2s ease;
-  position: relative; z-index: 2;
+  display:inline-block; margin-top:22px; padding:12px 22px;
+  background-color:#ff94b6; color:#fff; border:none; border-radius:20px;
+  font-size:18px; font-weight:500; text-decoration:none;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  transition: background .2s ease, transform .2s ease;
 }
-.cta-button:hover{ transform: translateY(-1px); box-shadow: 0 12px 24px rgba(47,93,69,.45), inset 0 0 0 1px rgba(255,255,255,.12); }
+.cta-button:hover{ background-color:#f871a0; transform: translateY(-1px); }
 
-/* 🎄 эмодзи у номера */
-.cert-number2{ position: relative; color: var(--ny-gold); }
+/* 🎁 Анимация подарка на кнопке */
+.btn-gift{ display:inline-block; margin-left:.4em; transform-origin:center; animation: gift-bounce 1.6s ease-in-out infinite; }
+@keyframes gift-bounce{
+  0%,100%{ transform: translateY(0) rotate(0) scale(1); opacity:.9; }
+  50%{ transform: translateY(-2px) rotate(8deg) scale(1.1); opacity:1; }
+}
+
+/* 🎄 эмодзи у номера — БЕЗ анимации */
+.cert-number2{ position:relative; color: var(--ny-gold); }
 .cert-number2::after{
-  content:"🎄"; position: absolute; right:-1.4em; top:-.3em;
-  animation: sparkle 1.6s ease-in-out infinite;
+  content:"🎄"; position:absolute; right:-1.4em; top:-.3em;
+  /* без animation */
 }
-@keyframes sparkle{ 0%,100%{opacity:.15; transform:scale(.85) rotate(0)} 50%{opacity:1; transform:scale(1.15) rotate(18deg)} }
 
-/* ===== ПАДАЮЩИЕ ЭМОДЗИ (мордочки) — на всём сайте ===== */
+/* ===== ПАДАЮЩИЕ ЭМОДЗИ (мордочки) ===== */
 .emoji-container{
   position: fixed; inset: 0; overflow: hidden; z-index: 1; pointer-events: none;
 }
@@ -112,7 +110,7 @@ html, body {
   100%{ transform: translateY(110vh) rotate(360deg); opacity:0; }
 }
 
-/* ===== Мягкие блики (оставлены под красную тему) ===== */
+/* Блики */
 .glow-background{ position: fixed; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
 .glow-circle{ position: absolute; width: 300px; height: 300px; border-radius: 50%;
   background: radial-gradient(circle, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0) 70%);
@@ -127,7 +125,7 @@ html, body {
   100%{ transform: scale(1) translateY(0) rotate(360deg) }
 }
 
-/* ===== Холсты эффектов ===== */
+/* Холсты эффектов */
 #confetti-canvas, #global-snow{
   position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none;
 }
