@@ -4,28 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>это Ваш подарок в morda.store</title>
-  <!-- cache-bust -->
-  <link rel="stylesheet" href="./style.css?v=2025-08-27-ny" />
+  <link rel="stylesheet" href="./style.css?v=fix-ny-1" />
 </head>
 <body>
-
   <!-- холсты эффектов -->
   <canvas id="global-snow" aria-hidden="true"></canvas>
   <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
   <div class="wrapper">
-
     <!-- ОБЛОЖКА -->
     <div id="cover">
       <img class="cover-image" src="https://i.postimg.cc/HsM8gmZ8/DSC04402-Dx-O.jpg" alt="Подарок MORDA" />
       <button id="openBtn">открой свой подарок</button>
     </div>
 
-    <!-- СЕРТИФИКАТ (инлайн-скрытие на случай, если CSS не загрузится) -->
+    <!-- СЕРТИФИКАТ -->
     <div class="certificate" id="cert" style="display:none">
       <h1>morda.store</h1>
       <h2>подарочный сертификат</h2>
-
       <p>для: <strong>модели крыски, которая закрылась в моем кардигане в офисе</strong></p>
       <p>от: <strong>спонсор одобряет</strong></p>
       <p>на: <strong>запечатлении частички близкого и настоящего друга</strong></p>
@@ -49,7 +45,6 @@
     <div class="emoji-container" aria-hidden="true"></div>
   </div>
 
-  <!-- cache-bust + defer -->
-  <script src="./script.js?v=2025-08-27-ny" defer></script>
+  <script src="./script.js?v=fix-ny-1" defer></script>
 </body>
 </html>
