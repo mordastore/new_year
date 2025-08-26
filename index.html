@@ -1,51 +1,47 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>это Ваш подарок в morda.store</title>
-  <link rel="stylesheet" href="style.css?v=nyfix2" />
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <!-- холсты эффектов -->
-  <canvas id="global-snow" aria-hidden="true"></canvas>
-  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
-  <div class="wrapper">
-    <!-- ОБЛОЖКА -->
-    <div id="cover">
-      <img class="cover-image" src="https://i.postimg.cc/HsM8gmZ8/DSC04402-Dx-O.jpg" alt="Подарок MORDA" />
-      <button id="openBtn">открой свой подарок</button>
-    </div>
+<div class="wrapper">
 
-    <!-- СЕРТИФИКАТ -->
-    <div class="certificate" id="cert" style="display:none">
-      <h1>morda.store</h1>
-      <h2>подарочный сертификат</h2>
-
-      <p>для: <strong>модели крыски, которая закрылась в моем кардигане в офисе</strong></p>
-      <p>от: <strong>спонсор одобряет</strong></p>
-      <p>на: <strong>запечатлении частички близкого и настоящего друга</strong></p>
-      <p class="message"></p>
-
-      <!-- плоская кнопка + анимированный 🎁 -->
-      <a class="cta-button" href="https://t.me/fairy538" target="_blank" rel="noopener">
-        оформить заказ <span class="btn-gift" aria-hidden="true">🎁</span>
-      </a>
-
-      <p class="small-note">
-        добро пожаловать в:
-        <a href="https://t.me/jul_lullaby" target="_blank" rel="noopener">morda.store</a>
-      </p>
-      <p class="small-note2">
-        номер сертификата: <strong class="cert-number2">1979</strong>
-      </p>
-    </div>
-
-    <!-- падающие мордочки -->
-    <div class="emoji-container" aria-hidden="true"></div>
+  <!-- ОБЛОЖКА -->
+  <div id="cover">
+    <img src="https://i.postimg.cc/HsM8gmZ8/DSC04402-Dx-O.jpg" alt="Подарок MORDA" class="cover-image">
+    <button id="openBtn">открой свой подарок</button>
   </div>
 
-  <script src="script.js?v=nyfix2" defer></script>
+  <!-- СЕРТИФИКАТ -->
+  <div class="certificate" id="cert">
+    <!-- гирлянда -->
+    <div class="xmas-garland" aria-hidden="true">
+      <img src="https://i.ibb.co/qdqhR8y/garland.png" alt="Гирлянда" />
+    </div>
+    <h1>morda.store</h1>
+    <h2>подарочный сертификат</h2>
+    <p>для: <strong>модели крыски, которая закрылась в моем кардигане в офисе</strong></p>
+    <p>от: <strong>спонсор одобряет</strong></p>
+    <p>на: <strong>запечатлении частички близкого и настоящего друга</strong></p>
+    <a href="https://t.me/fairy538" target="_blank" class="cta-button">оформить заказ 🎁</a>
+    <p class="small-note">добро пожаловать в:
+      <a href="https://t.me/jul_lullaby" target="_blank">morda.store</a>
+    </p>
+    <p class="small-note2">
+      номер сертификаmа: <strong class="cert-number2">1979</strong>
+    </p>
+  </div>
+
+  <!-- ЭФФЕКТЫ -->
+  <div class="emoji-container" aria-hidden="true"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+</div>
+
+<script src="./script.js"></script>
 </body>
 </html>
