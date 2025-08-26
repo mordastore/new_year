@@ -321,6 +321,82 @@ body, html {
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
+/* Новый фон для новогоднего стиля */
+body, html {
+  background: linear-gradient(135deg, #b44933, #9e3d29);
+  color: #fff;
+}
+
+#cover .cover-image {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+#openBtn {
+  background-color: #2f5d45;
+  color: #fff;
+  border-radius: 20px;
+  font-size: 18px;
+  padding: 14px 28px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+  transition: background 0.3s;
+}
+#openBtn:hover {
+  background-color: #204636;
+}
+
+.certificate {
+  background: #b44933;
+  border: 4px dashed #f6eedc;
+  color: #fffaf5;
+  position: relative;
+}
+
+.cta-button {
+  background-color: #2f5d45;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 20px;
+  font-size: 18px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  box-shadow: none;
+  border: none;
+}
+.cta-button:hover {
+  background-color: #204636;
+  transform: scale(1.03);
+}
+
+.xmas-garland {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  z-index: 1;
+}
+.xmas-garland img {
+  width: 100%;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* emoji анимация */
+@keyframes emojiFloat {
+  0% { transform: translateY(-10vh) rotate(0); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+.emoji-container .emoji {
+  position: absolute;
+  animation: emojiFloat linear infinite;
+  font-size: 24px;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
 .cta-button:hover {
   background-color: #f871a0;
   transform: scale(1.03);
