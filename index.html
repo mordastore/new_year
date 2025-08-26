@@ -13,13 +13,13 @@
 
   <div class="wrapper">
 
-    <!-- ОБЛОЖКА (фото оставляем, стили — новогодние) -->
+    <!-- ОБЛОЖКА -->
     <div id="cover">
       <img src="https://i.postimg.cc/HsM8gmZ8/DSC04402-Dx-O.jpg" alt="Подарок MORDA" class="cover-image" />
       <button id="openBtn">открой свой подарок</button>
     </div>
 
-    <!-- СЕРТИФИКАТ (новогодний скин из CSS; гирлянда в ФОНЕ) -->
+    <!-- СЕРТИФИКАТ -->
     <div class="certificate" id="cert">
       <h1>morda.store</h1>
       <h2>подарочный сертификат</h2>
@@ -28,7 +28,10 @@
       <p>на: <strong>запечатлении частички близкого и настоящего друга</strong></p>
       <p class="message"></p>
 
-      <a href="https://t.me/fairy538" target="_blank" class="cta-button">оформить заказ✨</a>
+      <!-- Кнопка: плоский стиль и анимированный 🎁 -->
+      <a href="https://t.me/fairy538" target="_blank" class="cta-button">
+        оформить заказ <span class="btn-gift" aria-hidden="true">🎁</span>
+      </a>
 
       <p class="small-note">
         добро пожаловать в:
@@ -39,17 +42,17 @@
       </p>
     </div>
 
-    <!-- ПАДАЮЩИЕ ЭМОДЗИ (мордочки) — видно на обеих частях -->
+    <!-- падающие эмодзи (мордочки) -->
     <div class="emoji-container" aria-hidden="true"></div>
 
-    <!-- Мягкие блики (оставил, под красную тему) -->
+    <!-- блики -->
     <div class="glow-background" aria-hidden="true">
       <div class="glow-circle"></div>
       <div class="glow-circle"></div>
       <div class="glow-circle"></div>
     </div>
 
-    <!-- холст конфетти -->
+    <!-- конфетти -->
     <canvas id="confetti-canvas"></canvas>
 
     <div class="gloss-effect" aria-hidden="true"></div>
